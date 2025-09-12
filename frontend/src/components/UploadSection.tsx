@@ -1,0 +1,163 @@
+import { useRef } from 'react'
+import { Upload, X, FileText, AlertCircle, CheckCircle2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Progress } from '@/components/ui/progress'
+import { useDropZone } from '@/hooks/useDropZone'
+import { cn } from '@/lib/utils'
+
+export function UploadSection() {
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const { 
+    isDragOver, 
+    files, 
+    handleDragOver, 
+    handleDragLeave, 
+    handleDrop, 
+    handleFileSelect, 
+    removeFile 
+  } = useDropZone()
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes'
+    const k = 1024
+    const sizes = ['Bytes', 'KB', 'MB', 'GB']
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+  }
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'success':
+        return <CheckCircle2 className="h-4 w-4 text-green-500" />
+      case 'error':
+        return <AlertCircle className="h-4 w-4 text-red-500" />
+      case 'uploading':
+        return <div className="h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      default:
+        return <FileText className="h-4 w-4 text-gray-500" />
+    }
+  }
+
+  return (
+    <section className="max-w-4xl mx-auto">
+      <Card className="mb-8">
+        <CardContent className="p-8">
+          <div
+            className={cn(
+              "relative border-2 border-dashed rounded-lg p-12 text-center transition-all duration-200",
+              isDragOver 
+                ? "border-blue-500 bg-blue-50" 
+                : "border-gray-300 hover:border-gray-400"
+            )}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+            <input
+              ref={fileInputRef}
+              type="file"
+              multiple
+              accept=".pdf"
+              onChange={handleFileSelect}
+              className="hidden"
+            />
+            
+            <Upload 
+              className={cn(
+                "mx-auto mb-4 h-12 w-12 transition-colors",
+                isDragOver ? "text-blue-500" : "text-gray-400"
+              )} 
+            />
+            
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              {isDragOver ? "Drop your files here" : "Upload your exam PDFs"}
+            </h3>
+            
+            <p className="text-gray-600 mb-6">
+              Drag and drop your PDF files here, or click to browse
+            </p>
+            
+            <Button onClick={handleButtonClick} size="lg" className="mb-4">
+              Choose Files
+            </Button>
+            
+            <div className="text-sm text-gray-500 space-y-1">
+              <p>• PDF files only, up to 10MB each</p>
+              <p>• Maximum 5 files at once</p>
+              <p>• Files are processed securely and deleted after analysis</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {files.length > 0 && (
+        <Card>
+          <CardContent className="p-6">
+            <h4 className="text-lg font-semibold mb-4">
+              Uploaded Files ({files.length}/5)
+            </h4>
+            <div className="space-y-4">
+              {files.map((uploadFile) => (
+                <div 
+                  key={uploadFile.id}
+                  className="flex items-center space-x-4 p-4 border rounded-lg"
+                >
+                  {getStatusIcon(uploadFile.status)}
+                  
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-1">
+                      <p className="text-sm font-medium text-gray-900 truncate">
+                        {uploadFile.file.name}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {formatFileSize(uploadFile.file.size)}
+                      </p>
+                    </div>
+                    
+                    {uploadFile.status === 'uploading' && (
+                      <Progress value={uploadFile.progress} className="h-2" />
+                    )}
+                    
+                    {uploadFile.error && (
+                      <p className="text-sm text-red-500 mt-1">
+                        {uploadFile.error}
+                      </p>
+                    )}
+                    
+                    {uploadFile.status === 'success' && (
+                      <p className="text-sm text-green-500 mt-1">
+                        Upload complete
+                      </p>
+                    )}
+                  </div>
+                  
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removeFile(uploadFile.id)}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+            
+            {files.some(f => f.status === 'pending' || f.status === 'success') && (
+              <div className="mt-6 flex justify-center">
+                <Button size="lg" className="px-8">
+                  Analyze Files
+                </Button>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+    </section>
+  )
+}
