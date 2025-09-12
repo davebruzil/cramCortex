@@ -52,14 +52,14 @@ export function UploadSection() {
 
   return (
     <section className="max-w-4xl mx-auto">
-      <Card className="mb-8">
+      <Card className="mb-8 bg-gray-900/80 border-gray-700">
         <CardContent className="p-8">
           <div
             className={cn(
-              "relative border-2 border-dashed rounded-lg p-12 text-center transition-all duration-200 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2",
+              "relative border-2 border-dashed rounded-lg p-12 text-center transition-all duration-200 focus-within:ring-2 focus-within:ring-white focus-within:ring-offset-2 focus-within:ring-offset-gray-900",
               isDragOver 
-                ? "border-blue-500 bg-blue-50" 
-                : "border-gray-300 hover:border-gray-400"
+                ? "border-white bg-gray-800/50 shadow-[0_0_30px_rgba(255,255,255,0.2)]" 
+                : "border-gray-600 hover:border-gray-500"
             )}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -83,15 +83,15 @@ export function UploadSection() {
             <Upload 
               className={cn(
                 "mx-auto mb-4 h-12 w-12 transition-colors",
-                isDragOver ? "text-blue-500" : "text-gray-400"
+                isDragOver ? "text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" : "text-gray-400"
               )} 
             />
             
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <h3 className="text-xl font-semibold text-white mb-2" style={{ textShadow: '0 0 20px rgba(255, 255, 255, 0.6)' }}>
               {isDragOver ? "Drop your files here" : "Upload your exam PDFs"}
             </h3>
             
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-300 mb-6" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.3)' }}>
               Drag and drop your PDF files here, or click to browse
             </p>
             
@@ -104,7 +104,7 @@ export function UploadSection() {
               Choose Files
             </Button>
             
-            <div id="file-upload-description" className="text-sm text-gray-500 space-y-1">
+            <div id="file-upload-description" className="text-sm text-gray-400 space-y-1" style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.2)' }}>
               <p>• PDF files only, up to 10MB each</p>
               <p>• Maximum 5 files at once</p>
               <p>• Files are processed securely and deleted after analysis</p>
@@ -114,25 +114,25 @@ export function UploadSection() {
       </Card>
 
       {files.length > 0 && (
-        <Card>
+        <Card className="bg-gray-900/80 border-gray-700">
           <CardContent className="p-6">
-            <h4 className="text-lg font-semibold mb-4">
+            <h4 className="text-lg font-semibold mb-4 text-white" style={{ textShadow: '0 0 15px rgba(255, 255, 255, 0.5)' }}>
               Uploaded Files ({files.length}/5)
             </h4>
             <div className="space-y-4">
               {files.map((uploadFile) => (
                 <div 
                   key={uploadFile.id}
-                  className="flex items-center space-x-4 p-4 border rounded-lg"
+                  className="flex items-center space-x-4 p-4 border border-gray-700 rounded-lg bg-gray-800/50"
                 >
                   {getStatusIcon(uploadFile.status)}
                   
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <p className="text-sm font-medium text-white truncate" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.3)' }}>
                         {uploadFile.file.name}
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-400">
                         {formatFileSize(uploadFile.file.size)}
                       </p>
                     </div>
@@ -142,13 +142,13 @@ export function UploadSection() {
                     )}
                     
                     {uploadFile.error && (
-                      <p className="text-sm text-red-500 mt-1">
+                      <p className="text-sm text-red-400 mt-1">
                         {uploadFile.error}
                       </p>
                     )}
                     
                     {uploadFile.status === 'success' && (
-                      <p className="text-sm text-green-500 mt-1">
+                      <p className="text-sm text-green-400 mt-1">
                         Upload complete
                       </p>
                     )}
@@ -158,7 +158,7 @@ export function UploadSection() {
                     variant="ghost"
                     size="sm"
                     onClick={() => removeFile(uploadFile.id)}
-                    className="text-gray-500 hover:text-gray-700"
+                    className="text-gray-400 hover:text-white hover:bg-gray-700"
                   >
                     <X className="h-4 w-4" />
                   </Button>
