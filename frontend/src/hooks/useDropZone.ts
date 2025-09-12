@@ -1,5 +1,5 @@
 import { useState, useCallback, DragEvent } from 'react'
-import { UploadFile } from '@/types/upload'
+import { UploadFile } from '../types/upload'
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
 const MAX_FILES = 5

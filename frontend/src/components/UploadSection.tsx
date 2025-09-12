@@ -1,10 +1,10 @@
 import { useRef } from 'react'
 import { Upload, X, FileText, AlertCircle, CheckCircle2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Progress } from '@/components/ui/progress'
-import { useDropZone } from '@/hooks/useDropZone'
-import { cn } from '@/lib/utils'
+import { Button } from './ui/button'
+import { Card, CardContent } from './ui/card'
+import { Progress } from './ui/progress'
+import { useDropZone } from '../hooks/useDropZone'
+import { cn } from '../lib/utils'
 
 export function UploadSection() {
   const fileInputRef = useRef<HTMLInputElement>(null)
