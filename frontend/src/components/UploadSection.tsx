@@ -22,6 +22,13 @@ export function UploadSection() {
     fileInputRef.current?.click()
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      handleButtonClick()
+    }
+  }
+
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes'
     const k = 1024
@@ -49,7 +56,7 @@ export function UploadSection() {
         <CardContent className="p-8">
           <div
             className={cn(
-              "relative border-2 border-dashed rounded-lg p-12 text-center transition-all duration-200",
+              "relative border-2 border-dashed rounded-lg p-12 text-center transition-all duration-200 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2",
               isDragOver 
                 ? "border-blue-500 bg-blue-50" 
                 : "border-gray-300 hover:border-gray-400"
@@ -57,6 +64,10 @@ export function UploadSection() {
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+            role="button"
+            aria-label="Click to upload PDF files or drag and drop them here"
           >
             <input
               ref={fileInputRef}
@@ -64,7 +75,9 @@ export function UploadSection() {
               multiple
               accept=".pdf"
               onChange={handleFileSelect}
-              className="hidden"
+              className="sr-only"
+              id="file-upload"
+              aria-describedby="file-upload-description"
             />
             
             <Upload 
@@ -82,11 +95,16 @@ export function UploadSection() {
               Drag and drop your PDF files here, or click to browse
             </p>
             
-            <Button onClick={handleButtonClick} size="lg" className="mb-4">
+            <Button 
+              onClick={handleButtonClick} 
+              size="lg" 
+              className="mb-4"
+              aria-describedby="file-upload-description"
+            >
               Choose Files
             </Button>
             
-            <div className="text-sm text-gray-500 space-y-1">
+            <div id="file-upload-description" className="text-sm text-gray-500 space-y-1">
               <p>• PDF files only, up to 10MB each</p>
               <p>• Maximum 5 files at once</p>
               <p>• Files are processed securely and deleted after analysis</p>
