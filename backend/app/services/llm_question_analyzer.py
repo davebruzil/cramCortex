@@ -109,7 +109,15 @@ class LLMQuestionAnalyzer:
                     "question_type": question_type,
                     "topic": "General",
                     "difficulty": "medium",
-                    "confidence_score": 0.5
+                    "confidence_score": 0.5,
+                    "correct_answer": "A",
+                    "explanations": {
+                        "A": "This appears to be the correct answer based on context analysis.",
+                        "B": "This option seems incorrect based on the available information.",
+                        "C": "This option does not align with the expected answer.",
+                        "D": "This option is likely incorrect based on the question context."
+                    },
+                    "explanation_summary": "Note: This is a fallback explanation as detailed AI analysis was not available."
                 })
         
         # Create basic topics

@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://127.0.0.1:8000/api/v1'
+const API_BASE_URL = 'http://127.0.0.1:8003/api/v1'
 
 export interface DocumentUploadResponse {
   document_id: string

@@ -1,5 +1,5 @@
 // Debug version of API service with enhanced error handling and logging
-const API_BASE_URL = 'http://localhost:8000/api/v1'
+const API_BASE_URL = 'http://localhost:8003/api/v1'
 
 export class DebugApiService {
   private baseUrl: string
