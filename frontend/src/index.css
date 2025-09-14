@@ -8,3 +8,159 @@ body {
   color: #111827;
   min-height: 100vh;
 }
+
+/* Unconventional animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+@keyframes synaptic-burst {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 0 0 30px rgba(255, 255, 255, 0);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes gravity-pull {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.synaptic-click {
+  animation: synaptic-burst 0.6s ease-out;
+}
+
+.gravity-button {
+  animation: gravity-pull 2s ease-in-out infinite;
+}
+
+/* Depth card physics */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* INSANE 3D HERO ANIMATIONS */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-gpu {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes matrix-glitch {
+  0%, 100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(90deg);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    filter: hue-rotate(180deg);
+  }
+  60% {
+    transform: translate(2px, 2px);
+    filter: hue-rotate(270deg);
+  }
+  80% {
+    transform: translate(2px, -2px);
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes neural-pulse {
+  0%, 100% {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2) rotateZ(180deg);
+    opacity: 1;
+  }
+}
+
+@keyframes depth-shift {
+  0%, 100% {
+    transform: rotateX(15deg) rotateY(-5deg) translateZ(0px);
+  }
+  50% {
+    transform: rotateX(25deg) rotateY(5deg) translateZ(20px);
+  }
+}
+
+/* Utility classes for 3D transforms */
+.rotateX-12 {
+  transform: rotateX(12deg);
+}
+
+.rotateX-8 {
+  transform: rotateX(8deg);
+}
+
+/* Matrix-style text effects */
+.text-matrix {
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Glitch effect for text */
+.glitch-text {
+  position: relative;
+  animation: matrix-glitch 0.3s infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  animation: matrix-glitch 0.3s infinite;
+  color: #ff0000;
+  z-index: -1;
+}
+
+.glitch-text::after {
+  animation: matrix-glitch 0.3s infinite reverse;
+  color: #00ffff;
+  z-index: -2;
+}

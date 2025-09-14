@@ -1,16 +1,17 @@
-import { Header } from "./components/Header"
-import { HeroSection } from "./components/HeroSection"
-import { UploadSection } from "./components/UploadSection"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Home } from './pages/Home'
+import { AnalysisResults } from './pages/AnalysisResults'
+import { QuestionPracticeView } from './pages/QuestionPracticeView'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
-      <Header />
-      <main className="container mx-auto px-4 py-8">
-        <HeroSection />
-        <UploadSection />
-      </main>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/results" element={<AnalysisResults />} />
+        <Route path="/practice/:questionType" element={<QuestionPracticeView />} />
+      </Routes>
+    </Router>
   )
 }
 
