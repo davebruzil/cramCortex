@@ -38,7 +38,7 @@ cramCortex is an intelligent test analysis platform that automatically processes
 ## 📷 **Application Screenshots**
 
 ### **Main Upload Interface**
-![cramCortex Upload Interface](https://raw.githubusercontent.com/davebruzil/cramCortex/main/docs/images/upload-interface.png)
+![cramCortex Upload Interface](docs/images/upload-interface.png)
 
 **What you see here:** The sleek, dark-themed upload interface featuring the cramCortex brain logo. The four key capabilities are highlighted at the top: Question Classification, Topic Clustering, Smart Analytics, and Instant Processing. This is where your learning journey begins - simply drag and drop any test PDF to start the AI analysis.
 
