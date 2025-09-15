@@ -35,19 +35,27 @@ cramCortex transforms any test document into an intelligent, interactive study s
 
 cramCortex is an intelligent test analysis platform that automatically processes exam documents, identifies questions, categorizes content, and provides structured study recommendations. Upload any past exam and receive comprehensive analysis including question categorization, topic clustering, and targeted study modes.
 
-## 📷 **Application Screenshots**
+## 📷 **Complete User Flow - From Upload to Practice**
 
-### **Main Upload Interface**
+### **1. Analysis Results Dashboard**
+![cramCortex Analysis Dashboard](docs/images/analysis-dashboard.png)
+
+**What you see here:** The sophisticated analysis results page showing your document's breakdown. The asymmetrical layout displays question type cards on the left (Multiple Choice, True False, etc.) with circular progress indicators and practice buttons. The right sidebar shows knowledge areas and topics discovered in your document. This intelligent dashboard transforms raw exam content into structured, actionable study materials.
+
+### **2. Upload Interface**
 ![cramCortex Upload Interface](docs/images/upload-interface.png)
 
 **What you see here:** The sleek, dark-themed upload interface featuring the cramCortex brain logo. The four key capabilities are highlighted at the top: Question Classification, Topic Clustering, Smart Analytics, and Instant Processing. This is where your learning journey begins - simply drag and drop any test PDF to start the AI analysis.
 
-### **Analysis Results Dashboard**
-*[Additional screenshots will be added showing the question type breakdown, topic analysis, and practice interface]*
+### **3. Question Practice Interface**
+![cramCortex Question Practice](docs/images/question-practice.png)
 
-**Analysis View:** After upload, you'll see a sophisticated dashboard showing question type distribution, topic clusters, and practice recommendations. The asymmetrical layout maximizes screen real estate while providing clear navigation to different practice modes.
+**What you see here:** The heart of active learning - individual question practice with full context. See the progress bar at the top, question metadata (topic, difficulty, AI confidence), and the clean question presentation. The interface includes navigation controls, completion tracking, and an explanation button that reveals detailed breakdowns of why each answer choice is correct or incorrect. This transforms passive reading into engaged, structured practice.
 
-**Practice Interface:** Interactive question-by-question practice with explanations, progress tracking, and AI-enhanced context. Each question includes difficulty indicators, topic tags, and comprehensive explanations for both correct and incorrect answers.
+### **4. Document Processing**
+![cramCortex Document Processing](docs/images/document-processing.png)
+
+**What happens here:** Watch the AI magic unfold! This processing screen shows cramCortex analyzing your document in real-time. The sophisticated dark interface displays progress as our GPT-4 engine extracts questions, identifies patterns, and builds your personalized study structure. In seconds, raw exam content transforms into intelligent, structured learning materials ready for practice.
 
 ---
 

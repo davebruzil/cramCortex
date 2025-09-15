@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { ArrowLeft, ArrowRight, ArrowLeftRight, CheckCircle, Clock, Target, BookOpen, EyeOff } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ArrowLeftRight, CheckCircle, Clock, Target, BookOpen, EyeOff, Brain, TrendingUp } from 'lucide-react'
 import { Button } from '../components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import type { AnalysisResult } from '../types/analysis'
@@ -180,8 +180,17 @@ export function QuestionPracticeView() {
                   {currentQuestion.difficulty}
                 </span>
               </div>
-              <div className="text-gray-400 text-sm">
-                Confidence: {Math.round(currentQuestion.confidence_score * 100)}%
+              <div className="flex items-center space-x-4 text-sm">
+                <div className="flex items-center space-x-1 text-gray-400">
+                  <Brain className="h-4 w-4" />
+                  <span>AI Confidence: {Math.round(currentQuestion.confidence_score * 100)}%</span>
+                </div>
+                {currentQuestion.confidence_score >= 0.8 && (
+                  <div className="flex items-center space-x-1 text-green-400">
+                    <TrendingUp className="h-4 w-4" />
+                    <span>RAG Enhanced</span>
+                  </div>
+                )}
               </div>
             </div>
           </CardHeader>

@@ -1,0 +1,64 @@
+{
+  "cybersecurity_concepts": [
+    {
+      "topic": "Authentication Methods",
+      "content": "Username and password authentication is the most basic form. Multi-factor authentication (MFA) combines something you know (password), something you have (token), and something you are (biometric). Hash functions like SHA-256 are used to store passwords securely. Salt is added to prevent rainbow table attacks. The correct format is: username, salt, hash(password + salt).",
+      "keywords": ["authentication", "password", "hash", "salt", "MFA", "biometric", "token"]
+    },
+    {
+      "topic": "Password Security",
+      "content": "Passwords should never be stored in plaintext. Proper password storage uses: 1) Generate random salt, 2) Concatenate password + salt, 3) Hash the result, 4) Store username + salt + hash. Common mistakes include: storing passwords in plaintext, using weak hashing algorithms (MD5, SHA1), not using salt, or storing salt separately from hash.",
+      "keywords": ["password", "hash", "salt", "plaintext", "storage", "MD5", "SHA1", "SHA-256"]
+    },
+    {
+      "topic": "Network Security",
+      "content": "Firewalls control network traffic based on rules. DMZ (Demilitarized Zone) separates internal network from external. VPN creates secure tunnels over public networks. SSL/TLS encrypts data in transit. Port scanning detects open services. Network segmentation isolates critical systems.",
+      "keywords": ["firewall", "DMZ", "VPN", "SSL", "TLS", "port scanning", "network segmentation"]
+    },
+    {
+      "topic": "Encryption",
+      "content": "Symmetric encryption uses same key for encryption/decryption (AES). Asymmetric encryption uses public/private key pairs (RSA). Digital signatures provide authentication and non-repudiation. Certificate authorities validate public keys. Key management is critical for security.",
+      "keywords": ["encryption", "symmetric", "asymmetric", "AES", "RSA", "digital signature", "certificate", "key management"]
+    },
+    {
+      "topic": "Common Attacks",
+      "content": "SQL injection exploits database queries. XSS (Cross-Site Scripting) injects malicious scripts. CSRF (Cross-Site Request Forgery) tricks users into unwanted actions. Phishing deceives users to reveal credentials. Man-in-the-middle attacks intercept communications. DDoS overwhelms services with traffic.",
+      "keywords": ["SQL injection", "XSS", "CSRF", "phishing", "man-in-the-middle", "DDoS", "attack vectors"]
+    },
+    {
+      "topic": "Access Control",
+      "content": "RBAC (Role-Based Access Control) assigns permissions to roles. DAC (Discretionary Access Control) lets owners control access. MAC (Mandatory Access Control) enforces system-wide policies. Principle of least privilege grants minimum necessary access. Separation of duties prevents fraud.",
+      "keywords": ["RBAC", "DAC", "MAC", "access control", "least privilege", "separation of duties"]
+    },
+    {
+      "topic": "Incident Response",
+      "content": "Incident response phases: 1) Preparation, 2) Detection and Analysis, 3) Containment, Eradication, Recovery, 4) Post-incident activity. Chain of custody maintains evidence integrity. Forensics analyzes digital evidence. Business continuity ensures operations continue.",
+      "keywords": ["incident response", "forensics", "chain of custody", "business continuity", "detection", "containment"]
+    },
+    {
+      "topic": "Risk Management",
+      "content": "Risk = Threat × Vulnerability × Impact. Risk assessment identifies and evaluates risks. Risk treatment options: accept, avoid, transfer, mitigate. Security controls can be preventive, detective, or corrective. Quantitative analysis uses numbers, qualitative uses descriptions.",
+      "keywords": ["risk assessment", "threat", "vulnerability", "impact", "risk treatment", "security controls"]
+    },
+    {
+      "topic": "Compliance Frameworks",
+      "content": "NIST Cybersecurity Framework: Identify, Protect, Detect, Respond, Recover. ISO 27001 provides security management system standards. SOX requires financial controls. HIPAA protects healthcare data. PCI DSS secures payment card data. GDPR protects personal data.",
+      "keywords": ["NIST", "ISO 27001", "SOX", "HIPAA", "PCI DSS", "GDPR", "compliance", "framework"]
+    },
+    {
+      "topic": "Malware Types",
+      "content": "Virus replicates by attaching to files. Worm spreads independently through networks. Trojan disguises as legitimate software. Rootkit hides in system. Ransomware encrypts files for payment. Spyware steals information. Adware displays unwanted ads.",
+      "keywords": ["virus", "worm", "trojan", "rootkit", "ransomware", "spyware", "adware", "malware"]
+    },
+    {
+      "topic": "Secure Development",
+      "content": "SDLC (Secure Development Lifecycle) integrates security from design. Input validation prevents injection attacks. Output encoding prevents XSS. Parameterized queries prevent SQL injection. Error handling shouldn't reveal system details. Code review identifies vulnerabilities.",
+      "keywords": ["SDLC", "input validation", "output encoding", "parameterized queries", "error handling", "code review"]
+    },
+    {
+      "topic": "Cryptographic Hashing",
+      "content": "Hash functions produce fixed-size output from variable input. Properties: deterministic, fast computation, avalanche effect, irreversible. MD5 and SHA-1 are broken. SHA-256 and SHA-3 are current standards. Salt prevents rainbow table attacks. HMAC provides authentication.",
+      "keywords": ["hash function", "MD5", "SHA-1", "SHA-256", "SHA-3", "salt", "HMAC", "rainbow table"]
+    }
+  ]
+}

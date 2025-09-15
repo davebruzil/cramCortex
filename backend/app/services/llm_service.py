@@ -6,6 +6,7 @@ import re
 from openai import AsyncOpenAI
 
 from app.core.config import settings
+from app.services.rag_service import rag_service
 
 logger = logging.getLogger(__name__)
 
@@ -14,6 +15,7 @@ class LLMService:
     def __init__(self):
         self.client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
         self.max_chunk_size = 3000  # Conservative chunk size for GPT-3.5-turbo
+        self.rag_initialized = False
         
     def _preprocess_text(self, text: str) -> str:
         """
@@ -504,14 +506,65 @@ class LLMService:
         logger.info(f"  Result: PASSED")
         
         return True
-    
-    def _create_analysis_prompt(self, text_chunk: str) -> str:
+
+    def _extract_potential_questions(self, text: str) -> List[str]:
+        """Extract potential questions from text for RAG context enhancement"""
+        potential_questions = []
+        lines = text.split('\n')
+
+        for line in lines:
+            line = line.strip()
+            # Look for lines that might be questions
+            if ('?' in line or
+                any(word in line.lower() for word in ['what', 'which', 'how', 'when', 'where', 'why']) or
+                re.match(r'^\d+[\.\)]\s+', line)):
+                if len(line) > 20:
+                    potential_questions.append(line)
+
+        return potential_questions[:3]  # Return up to 3 potential questions
+
+    async def _create_analysis_prompt(self, text_chunk: str) -> str:
         """
         Create a structured prompt for question analysis
-        Enhanced for cybersecurity multiple choice questions
+        Enhanced for cybersecurity multiple choice questions with RAG context
         """
+        # Initialize RAG service if not already done
+        if not self.rag_initialized:
+            try:
+                await rag_service.initialize()
+                self.rag_initialized = True
+                logger.info("RAG service initialized for enhanced accuracy")
+            except Exception as e:
+                logger.warning(f"RAG service initialization failed: {e}")
+
+        # Try to get RAG context for better accuracy
+        rag_context = ""
+        if rag_service.is_initialized:
+            try:
+                # Extract potential questions for context enhancement
+                potential_questions = self._extract_potential_questions(text_chunk)
+                if potential_questions:
+                    enhanced_info = await rag_service.enhance_question_with_context(
+                        potential_questions[0], []
+                    )
+                    if enhanced_info.get("context"):
+                        rag_context = f"""
+CYBERSECURITY KNOWLEDGE CONTEXT (for enhanced accuracy):
+{enhanced_info['context']}
+
+CONFIDENCE BOOST: {enhanced_info.get('confidence_boost', 0.0):.2f}
+RELEVANT TOPICS: {', '.join(enhanced_info.get('relevant_topics', []))}
+
+Use this authoritative cybersecurity knowledge to accurately identify correct answers.
+"""
+                        logger.info(f"Enhanced with RAG context (boost: {enhanced_info.get('confidence_boost', 0.0):.2f})")
+            except Exception as e:
+                logger.warning(f"RAG context retrieval failed: {e}")
+
         return f"""
 You are an expert educational content analyzer specializing in cybersecurity and IT security exams. Your job is to identify ONLY actual exam questions, NOT instructions, headers, titles, or administrative text.
+
+{rag_context}
 
 MANDATORY TRANSLATION AND SEPARATION REQUIREMENT:
 - TRANSLATE EVERY SINGLE WORD of Hebrew/non-English content to English
@@ -725,7 +778,7 @@ Return only valid JSON, no additional text.
             async def process_chunk(chunk_data):
                 chunk_text, index = chunk_data
                 async with semaphore:
-                    prompt = self._create_analysis_prompt(chunk_text)
+                    prompt = await self._create_analysis_prompt(chunk_text)
                     return await self._call_openai_api(prompt, index)
             
             # Create tasks for all chunks
